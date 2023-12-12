@@ -1,10 +1,50 @@
 import {
     Box, Button, Text, VStack, ButtonText, Pressable, FormControl, FormControlLabel, FormControlLabelText, Input, InputField,
-    FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorText,
 } from "@gluestack-ui/themed";
+import { useState } from "react";
 import { Image } from "react-native";
+import { api } from "../utils/api/base";
+import { AxiosError } from "axios";
+import useAuthStore from "../stores/AuthStore";
 
 export function Login({ navigation }) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { setLoginInfo } = useAuthStore(state => state);
+
+    const onClickLogin = async () => {
+        if (username === '' || password === '') {
+            alert('Preencha todos os campos!');
+            return;
+        }
+
+        try {
+            const response = await api.post('/auth/signin', {
+                username,
+                password,
+            });
+
+            setLoginInfo(
+                response.data.token,
+                response.data.refreshToken,
+                {
+                    email: response.data.email,
+                    name: response.data.username,
+                }
+            );
+
+            navigation.navigate("Home");
+
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                alert(err.message);
+                return;
+            }
+
+            alert("Opa, algo deu errado!, tente novamente mais tarde");
+        }
+    }
+
     return (
         <VStack h="100%" py="$16" px="$12" alignItems="center" space="md" bg="$roxao">
             <Image
@@ -22,10 +62,13 @@ export function Login({ navigation }) {
                     size="sm"
                 >
                     <FormControlLabel mb="$1" >
-                        <FormControlLabelText color="$white">Email</FormControlLabelText>
+                        <FormControlLabelText color="$white">Username</FormControlLabelText>
                     </FormControlLabel>
                     <Input>
-                        <InputField type="text" color="$blueGray300" defaultValue="12345" placeholder="email@mail.com" />
+                        <InputField
+                            value={username}
+                            onChangeText={setUsername}
+                            type="text" color="$blueGray300" placeholder="Digite seu usuário" />
                     </Input>
                 </FormControl>
             </Box>
@@ -40,7 +83,10 @@ export function Login({ navigation }) {
                         </FormControlLabelText>
                     </FormControlLabel>
                     <Input w="100%">
-                        <InputField color="$blueGray300" placeholder="Digite sua senha" type="password" />
+                        <InputField
+                            value={password}
+                            onChangeText={setPassword}
+                            color="$blueGray300" placeholder="Digite sua senha" type="password" />
                     </Input>
                 </FormControl>
             </Box>
@@ -49,7 +95,7 @@ export function Login({ navigation }) {
                 <Pressable onPress={() => navigation.navigate("Cadastro")}>
                     <Text color="$white">Cadastre-se</Text>
                 </Pressable>
-                <Button size="md" variant="solid" bg="$rosinha">
+                <Button onPress={onClickLogin} size="md" variant="solid" bg="$rosinha">
                     <ButtonText>Login</ButtonText>
                 </Button>
             </Box>

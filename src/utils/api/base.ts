@@ -2,7 +2,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { getState, setState } from "../../stores/AuthStore";
 
 export const api = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_API_URL
+    baseURL: "http://localhost:8080/api"
 })
 
 api.interceptors.request.use(
