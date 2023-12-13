@@ -1,0 +1,25 @@
+{
+    "dados": [
+        {
+            "nomeServico": "Consertar o Teto",
+            "inicio": "20/12/2023",
+            "fim": "20/01/2024",
+            "valor": "R$ 100,00",
+            "valorCompleto": false
+        },
+        {
+            "nomeServico": "Quebrar o Muro",
+            "inicio": "20/12/2023",
+            "fim": "20/01/2024",
+            "valor": "R$ 50,00",
+            "valorCompleto": false
+        },
+        {
+            "nomeServico": "Limpar a Casa nas Férias",
+            "inicio": "20/12/2023",
+            "fim": "20/01/2024",
+            "valor": "Gratis",
+            "valorCompleto": false
+        }
+    ]
+}
