@@ -6,8 +6,12 @@ import { Image } from "react-native";
 import { api } from "../utils/api/base";
 import { AxiosError } from "axios";
 import useAuthStore from "../stores/AuthStore";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../router";
 
-export function Login({ navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+export function Login({ navigation }: Props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { setLoginInfo } = useAuthStore(state => state);

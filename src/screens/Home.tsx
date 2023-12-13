@@ -1,10 +1,15 @@
+
 import { Box, Icon, Text, VStack, ClockIcon, ButtonText } from "@gluestack-ui/themed";
 import Json from "../mock/service-mockup.json";
 import { Button } from "@gluestack-ui/themed";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../router";
 
-export function Home({ navigation }) {
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function Home({ navigation }: Props) {
     return (
-        <Box width="100%" height="100%" alignItems="center" backgroundColor="$roxao">
            <VStack space="md" alignItems="center">
                 <Box w="$48" h="$48" marginBottom="$8">
                     <Icon as={ClockIcon} m="$2" w="$48" h="$48" color="$branquinha" />
@@ -42,6 +47,5 @@ export function Home({ navigation }) {
                 </Box>
                     ))} 
            </VStack>
-        </Box>
     )
 }
