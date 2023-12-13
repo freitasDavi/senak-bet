@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Pressable, TextInput } from "react-native";
 import { Header } from "react-native/Libraries/NewAppScreen";
 import { AxiosError } from "axios";
+import { api } from "../utils/api/base";
 
 export function Bolao({navigation}){
 
@@ -16,12 +17,20 @@ export function Bolao({navigation}){
         }
 
         try{
+            await api.post('/relogio', {
+                nome: nomeRelogio,
+                valor: valorHora
+            })
 
+            navigation.navigate('Home')
         } catch(error) {
             if (error instanceof AxiosError) {
-                
+                alert(error.message)
+                return
             }
+            alert("Erro não identificado!")
         }
+
     }
 
     return(
