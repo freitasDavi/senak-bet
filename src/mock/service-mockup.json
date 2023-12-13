@@ -5,21 +5,24 @@
             "inicio": "20/12/2023",
             "fim": "20/01/2024",
             "valor": "R$ 100,00",
-            "valorCompleto": false
+            "valorCompleto": "160,00",
+            "descricao": "Alguma coisa você vai fazer, coloca aqui"
         },
         {
             "nomeServico": "Quebrar o Muro",
             "inicio": "20/12/2023",
             "fim": "20/01/2024",
             "valor": "R$ 50,00",
-            "valorCompleto": false
+            "valorCompleto": "160,00",
+            "descricao": "Alguma coisa você vai fazer, coloca aqui"
         },
         {
             "nomeServico": "Limpar a Casa nas Férias",
             "inicio": "20/12/2023",
             "fim": "20/01/2024",
             "valor": "Gratis",
-            "valorCompleto": false
+            "valorCompleto": "160,00",
+            "descricao": "Alguma coisa você vai fazer, coloca aqui"
         }
     ]
 }
