@@ -2,15 +2,32 @@ import { AddIcon, Box, Button, ButtonIcon, ButtonText, FormControl, FormControlL
 import { useState } from "react";
 import { Pressable, TextInput } from "react-native";
 import { Header } from "react-native/Libraries/NewAppScreen";
+import { AxiosError } from "axios";
 
-export function Bolao({navigate}){
+export function Bolao({navigation}){
 
-    const [nomeBolao, setNomeBolao] = useState('');
+    const [nomeRelogio, setNomeRelogio] = useState('');
+    const [valorHora, setValorHora] = useState('');
+
+    const onClickIniciar = async () => {
+        if (nomeRelogio === "" || valorHora === ""){
+            alert("É necessário preencher os campos!")
+            return
+        }
+
+        try{
+
+        } catch(error) {
+            if (error instanceof AxiosError) {
+                
+            }
+        }
+    }
 
     return(
         <Box h="100%" py="$16" px="$12" alignItems="center" bg="$roxao">
             <Box py="$16" px="$12">
-            <Text color="$white" mb="$1">Criar Liga</Text>
+            <Text color="$white" mb="$1">Iniciar relógio</Text>
             </Box>
 
             <Box h="$16" w="$72" mt="$12">
@@ -18,23 +35,36 @@ export function Bolao({navigate}){
                     size="sm"
                 >
                     <FormControlLabel mb="$1" >
-                        <FormControlLabelText color="$white">Nome do bolão</FormControlLabelText>
+                        <FormControlLabelText color="$white">Descrição</FormControlLabelText>
                     </FormControlLabel>
                     <Input>
                         <InputField
-                            value={nomeBolao}
-                            onChangeText={setNomeBolao}
-                            type="text" color="$blueGray300" placeholder="Digite o nome da sua liga" />
+                            value={nomeRelogio}
+                            onChangeText={setNomeRelogio}
+                            type="text" color="$blueGray300" placeholder="Descrição" />
+                    </Input>
+                </FormControl>
+            </Box>
+
+            <Box h="$16" w="$72" mt="$12">
+                <FormControl
+                    size="sm"
+                >
+                    <FormControlLabel mb="$1" >
+                        <FormControlLabelText color="$white">Valor hora</FormControlLabelText>
+                    </FormControlLabel>
+                    <Input>
+                        <InputField
+                            value={valorHora}
+                            onChangeText={setValorHora}
+                            type="text" color="$blueGray300" placeholder="Valor da hora de serviço" />
                     </Input>
                 </FormControl>
             </Box>
                 
-            <Box mt="$12" w="100%" flexDirection="row" justifyContent="space-between" alignItems="flex-end">
-                <Pressable onPress={() => navigation.navigate("Home")}>
-                    <Text color="$white">Criar</Text>
-                </Pressable>
-                <Button onPress={onClickLogin} size="md" variant="solid" bg="$rosinha">
-                    <ButtonText>Login</ButtonText>
+            <Box mt="$12" w="100%" flexDirection="row" justifyContent="center" alignItems="center">
+                <Button onPress={onClickIniciar} size="md" variant="solid" bg="$rosinha">
+                    <ButtonText>Iniciar relógio</ButtonText>
                 </Button>
             </Box>
         </Box>
