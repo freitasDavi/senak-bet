@@ -3,9 +3,12 @@ import { useState } from "react";
 import { api } from "../utils/api/base";
 import { AxiosError } from "axios";
 import useAuthStore from "../stores/AuthStore";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../router";
 
+type Props = NativeStackScreenProps<RootStackParamList, 'Cadastro'>;
 
-export function Cadastro({ navigation }) {
+export function Cadastro({ navigation }: Props) {
     const [email, setEmail] = useState('');
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');

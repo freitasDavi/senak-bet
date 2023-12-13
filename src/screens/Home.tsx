@@ -1,6 +1,10 @@
 import { Box, Pressable, Text } from "@gluestack-ui/themed";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../router";
 
-export function Home({ navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function Home({ navigation }: Props) {
     return (
         <Box width="100%" height="100%" justifyContent="center" alignItems="center" backgroundColor="$roxao">
             <Pressable bg="$rosinha" onPress={() => navigation.navigate('Login')}>
@@ -8,7 +12,11 @@ export function Home({ navigation }) {
                     Login
                 </Text>
             </Pressable>
-
+            <Pressable bg="$rosinha" onPress={() => navigation.navigate('NovoRelogio')}>
+                <Text px="$5" py="$2" color="$white">
+                    Login
+                </Text>
+            </Pressable>
         </Box>
     )
 }

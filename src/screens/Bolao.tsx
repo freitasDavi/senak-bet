@@ -1,29 +1,31 @@
-import { AddIcon, Box, Button, ButtonIcon, ButtonText, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, LinearGradient, Text } from "@gluestack-ui/themed";
+import { Box, Button, ButtonText, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, LinearGradient, Text } from "@gluestack-ui/themed";
 import { useState } from "react";
-import { Pressable, TextInput } from "react-native";
-import { Header } from "react-native/Libraries/NewAppScreen";
 import { AxiosError } from "axios";
 import { api } from "../utils/api/base";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../router";
 
-export function Bolao({navigation}){
+type Props = NativeStackScreenProps<RootStackParamList, 'NovoRelogio'>;
+
+export function Bolao({ navigation }: Props) {
 
     const [nomeRelogio, setNomeRelogio] = useState('');
     const [valorHora, setValorHora] = useState('');
 
     const onClickIniciar = async () => {
-        if (nomeRelogio === "" || valorHora === ""){
+        if (nomeRelogio === "" || valorHora === "") {
             alert("É necessário preencher os campos!")
             return
         }
 
-        try{
+        try {
             await api.post('/relogio', {
                 nome: nomeRelogio,
                 valor: valorHora
             })
 
             navigation.navigate('Home')
-        } catch(error) {
+        } catch (error) {
             if (error instanceof AxiosError) {
                 alert(error.message)
                 return
@@ -33,10 +35,10 @@ export function Bolao({navigation}){
 
     }
 
-    return(
+    return (
         <Box h="100%" py="$16" px="$12" alignItems="center" bg="$roxao">
             <Box py="$16" px="$12">
-            <Text color="$white" mb="$1">Iniciar relógio</Text>
+                <Text color="$white" mb="$1">Iniciar relógio</Text>
             </Box>
 
             <Box h="$16" w="$72" mt="$12">
@@ -70,7 +72,7 @@ export function Bolao({navigation}){
                     </Input>
                 </FormControl>
             </Box>
-                
+
             <Box mt="$12" w="100%" flexDirection="row" justifyContent="center" alignItems="center">
                 <Button onPress={onClickIniciar} size="md" variant="solid" bg="$rosinha">
                     <ButtonText>Iniciar relógio</ButtonText>
