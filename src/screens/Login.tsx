@@ -34,6 +34,7 @@ export function Login({ navigation }: Props) {
                 {
                     email: response.data.email,
                     name: response.data.username,
+                    id: response.data.id
                 }
             );
 

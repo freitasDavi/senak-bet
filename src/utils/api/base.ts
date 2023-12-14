@@ -23,22 +23,23 @@ api.interceptors.response.use((response) => {
 }, async (error) => {
     if (error instanceof AxiosError && error.response?.status === 401) {
         const originalRequest = error.config as InternalAxiosRequestConfig;
-        const refreshToken = getState().refreshToken;
+        const refreshTokenSalvo = getState().refreshToken;
 
-        if (refreshToken) {
+        if (refreshTokenSalvo) {
+            console.log(refreshTokenSalvo);
             try {
-                const response = await api.post("/auth/refreshtoken", {
-                    refreshToken
-                });
+                // const response = await api.post("/auth/refreshtoken", {
+                //     refreshToken: refreshTokenSalvo
+                // });
 
-                const { bearer, refresh } = response.data;
+                const { accessToken, refreshToken } = response.data;
 
                 setState(({
-                    token: bearer,
-                    refreshToken: refresh
+                    token: accessToken,
+                    refreshToken: refreshToken
                 }));
 
-                api.defaults.headers["Authorization"] = `Bearer ${bearer}`;
+                api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
 
                 return api(originalRequest);
 

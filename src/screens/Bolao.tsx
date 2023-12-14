@@ -4,24 +4,28 @@ import { AxiosError } from "axios";
 import { api } from "../utils/api/base";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../router";
+import useAuthStore from "../stores/AuthStore";
+import { Pressable } from "@gluestack-ui/themed";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'NovoRelogio'>;
 
 export function Bolao({ navigation }: Props) {
-
+    const user = useAuthStore(state => state.userData);
     const [nomeRelogio, setNomeRelogio] = useState('');
     const [valorHora, setValorHora] = useState('');
 
     const onClickIniciar = async () => {
-        if (nomeRelogio === "" || valorHora === "") {
+        if (nomeRelogio === "" || valorHora === "" || user === null) {
             alert("É necessário preencher os campos!")
             return
         }
 
         try {
+            console.log(user.id)
             await api.post('/relogio', {
-                nome: nomeRelogio,
-                valor: valorHora
+                nomeServico: nomeRelogio,
+                valorHora: valorHora,
+                user: user.id
             })
 
             navigation.navigate('Home')
@@ -37,7 +41,10 @@ export function Bolao({ navigation }: Props) {
 
     return (
         <Box h="100%" py="$16" px="$12" alignItems="center" bg="$roxao">
-            <Box py="$16" px="$12">
+            <Box py="$16" px="$12" flexDirection="row" gap="$4">
+                <Pressable onPress={() => navigation.navigate("Home")}>
+                    <Text color="$white">{'<-'}</Text>
+                </Pressable>
                 <Text color="$white" mb="$1">Iniciar relógio</Text>
             </Box>
 
