@@ -25,7 +25,7 @@ export function Bolao({ navigation }: Props) {
             await api.post('/relogio', {
                 nomeServico: nomeRelogio,
                 valorHora: valorHora,
-                user: user.id
+                user: user?.id || 1
             })
 
             navigation.navigate('Home')

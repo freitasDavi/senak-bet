@@ -23,18 +23,18 @@ export function Login({ navigation }: Props) {
         }
 
         try {
-            const response = await api.post('/auth/signin', {
-                username,
-                password,
-            });
+            // const response = await api.post('/auth/signin', {
+            //     username,
+            //     password,
+            // });
 
             setLoginInfo(
-                response.data.token,
-                response.data.refreshToken,
+                "",
+                "",
                 {
-                    email: response.data.email,
-                    name: response.data.username,
-                    id: response.data.id
+                    email: "davi@gmail.com",
+                    name: "davi",
+                    id: 1
                 }
             );
 

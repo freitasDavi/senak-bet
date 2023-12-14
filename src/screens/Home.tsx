@@ -38,6 +38,15 @@ export function Home({ navigation }: Props) {
         }
     }, [userData])
 
+    const onClickAtualizar = async () => {
+        const response = await api.get("/relogio/" + userData?.id || "1");
+
+        setData(response.data);
+
+        const ativo = response.data.find((relogio: Relogio) => relogio.completo === false);
+        setAtivo(ativo);
+    }
+
     const pararRelogio = async (id: number) => {
         await api.put("/relogio/pararRelogio/" + id,)
 
@@ -55,6 +64,9 @@ export function Home({ navigation }: Props) {
             </Box>
 
 
+            <Button bg="$rosinha" onPress={onClickAtualizar}>
+                <ButtonText fontWeight="bold" color="$branquinha">ATUALIZAR</ButtonText>
+            </Button>
             <Button bg="$rosinha" onPress={() => navigation.navigate("NovoRelogio")}>
                 <ButtonText fontWeight="bold" color="$branquinha">NOVO</ButtonText>
             </Button>
